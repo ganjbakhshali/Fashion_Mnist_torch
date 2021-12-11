@@ -20,7 +20,13 @@ test_data = torchvision.datasets.FashionMNIST('./fashion_mnist_test', train=Fals
 # Create dataloaders
 
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=True)
-device=torch.device("cuda")
+# device=torch.device("cuda")
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument("--device",default="cuda:0", type=str)
+args = parser.parse_args()
+device=torch.device(args.device)
 model=mnistF_classifire()
 model=model.to(device)
 model.load_state_dict(torch.load('mnist_Fashion.pth'))

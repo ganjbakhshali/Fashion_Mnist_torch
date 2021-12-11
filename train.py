@@ -2,6 +2,7 @@ import torch
 import torchvision
 from model import *
 
+from argparse import ArgumentParser
 
 
 
@@ -37,7 +38,12 @@ def cal_acc(y_hat,labels):
 
 if __name__=="__main__":
 
-    device=torch.device("cuda")
+    # device=torch.device("cuda")
+    parser = ArgumentParser()
+    parser.add_argument("--device",default="cuda:0", type=str)
+    args = parser.parse_args()
+    device=torch.device(args.device)
+
     model=mnistF_classifire()
     model=model.to(device)
     model.train(True)
